@@ -1,0 +1,315 @@
+/* Cart Page Styles - Hebekery Design */
+.hebekery-cart-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+}
+
+.hebekery-cart-header {
+    background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.hebekery-cart-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.hebekery-cart-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    align-items: start;
+}
+
+.hebekery-cart-items {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.hebekery-cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+.hebekery-cart-item:last-child {
+    border-bottom: none;
+}
+
+.hebekery-item-checkbox {
+    margin-right: 10px;
+}
+
+.hebekery-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.hebekery-item-details {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.hebekery-item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.hebekery-item-price {
+    color: #2d7d32;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.hebekery-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.hebekery-quantity-btn {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.hebekery-quantity-btn:hover {
+    background: #f0f0f0;
+    border-color: #2d7d32;
+}
+
+.hebekery-quantity-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.hebekery-remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hebekery-remove-btn:hover {
+    background: #c82333;
+}
+
+.hebekery-cart-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.hebekery-summary-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.hebekery-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.hebekery-summary-row:last-child {
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2d7d32;
+}
+
+.hebekery-checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.hebekery-checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(45, 125, 50, 0.3);
+}
+
+.hebekery-checkout-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.hebekery-continue-shopping {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    margin-top: 15px;
+}
+
+.hebekery-continue-shopping:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+.hebekery-clear-cart {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.hebekery-clear-cart:hover {
+    background: #c82333;
+}
+
+.hebekery-empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.hebekery-empty-cart h3 {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.hebekery-empty-cart p {
+    color: #999;
+    margin-bottom: 30px;
+}
+
+.hebekery-select-all {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hebekery-cart-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .hebekery-cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .hebekery-item-details {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .hebekery-quantity-controls {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Promotion Banner */
+.hebekery-promotion-banner {
+    background: linear-gradient(135deg, #fbc02d 0%, #ffeb3b 100%);
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hebekery-shipping-info {
+    background: #e8f5e8;
+    border: 1px solid #c3e6c3;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.hebekery-shipping-info h6 {
+    color: #2d7d32;
+    margin-bottom: 10px;
+}
+
+.hebekery-shipping-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.hebekery-shipping-option:last-child {
+    border-bottom: none;
+}
