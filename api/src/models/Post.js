@@ -178,6 +178,20 @@ const Article = {
         const query = `DELETE FROM ${Article.tableName} WHERE id = ?`;
         const [result] = await db.query(query, [id]);
         return result.affectedRows > 0;
+    },
+
+    // Phương thức tìm bài viết theo slug
+    findBySlug: async (slug) => {
+        const query = `SELECT * FROM ${Article.tableName} WHERE slug = ?`;
+        const [rows] = await db.query(query, [slug]);
+        return rows.length > 0 ? rows[0] : null;
+    },
+
+    // Phương thức tăng view count
+    incrementViews: async (id) => {
+        const query = `UPDATE ${Article.tableName} SET views = views + 1 WHERE id = ?`;
+        const [result] = await db.query(query, [id]);
+        return result.affectedRows > 0;
     }
 };
 

@@ -132,13 +132,14 @@ const Cart = () => {
             <div className="hebekery-cart-header">
                 <h1 className="hebekery-cart-title">
                     <FaShoppingCart className="me-3" />
-                    GIỎ HÀNG
+                    GIỎ HÀNG CỦA BẠN
                 </h1>
+                <p style={{margin: 0, opacity: 0.9, fontSize: '1.1rem'}}>Quản lý sản phẩm và thanh toán dễ dàng</p>
             </div>
 
             {/* Promotion Banner */}
             <div className="hebekery-promotion-banner">
-                🎉 Mua từ 299k - Giảm thêm 15k và nhận [QUÀ TẶNG 48k] 🎉
+                🎉 Miễn phí vận chuyển đơn từ 500k - Ưu đãi đặc biệt cho khách hàng thân thiết! 🎉
             </div>
 
             {cartItems.length === 0 ? (
@@ -249,26 +250,26 @@ const Cart = () => {
 
                         {/* Shipping Info */}
                         <div className="hebekery-shipping-info">
-                            <h6>🚚 Thông tin vận chuyển</h6>
+                            <h6>🚚 Thông tin vận chuyển & Ưu đãi</h6>
                             <div className="hebekery-shipping-option">
-                                <span>FREESHIP toàn quốc đơn từ 299k</span>
-                                <span style={{color: '#2d7d32', fontWeight: 'bold'}}>Miễn phí</span>
+                                <span>FREESHIP toàn quốc đơn từ 500k</span>
+                                <span style={{color: '#1976d2', fontWeight: 'bold'}}>Miễn phí</span>
                             </div>
                             <div className="hebekery-shipping-option">
-                                <span>GIẢM 7% đơn từ 125k - Mã HB7</span>
-                                <span style={{color: '#2d7d32', fontWeight: 'bold'}}>-7%</span>
+                                <span>GIẢM 5% đơn từ 200k - Mã HOME5</span>
+                                <span style={{color: '#1976d2', fontWeight: 'bold'}}>-5%</span>
                             </div>
                             <div className="hebekery-shipping-option">
-                                <span>GIẢM 15k đơn từ 235k - Mã HB15</span>
-                                <span style={{color: '#2d7d32', fontWeight: 'bold'}}>-15k</span>
+                                <span>GIẢM 50k đơn từ 1tr - Mã HOME50</span>
+                                <span style={{color: '#1976d2', fontWeight: 'bold'}}>-50k</span>
                             </div>
                             <div className="hebekery-shipping-option">
-                                <span>GIẢM 30k đơn từ 380k - Mã HB30</span>
-                                <span style={{color: '#2d7d32', fontWeight: 'bold'}}>-30k</span>
+                                <span>GIẢM 100k đơn từ 2tr - Mã HOME100</span>
+                                <span style={{color: '#1976d2', fontWeight: 'bold'}}>-100k</span>
                             </div>
                             <div className="hebekery-shipping-option">
-                                <span>GIẢM 70k đơn từ 990k - Mã HB70</span>
-                                <span style={{color: '#2d7d32', fontWeight: 'bold'}}>-70k</span>
+                                <span>Bảo hành chính hãng & Đổi trả 7 ngày</span>
+                                <span style={{color: '#1976d2', fontWeight: 'bold'}}>✓</span>
                             </div>
                         </div>
 
@@ -289,7 +290,7 @@ const Cart = () => {
                         >
                             ĐẶT HÀNG NGAY
                             <br />
-                            <small>(Gía đã giảm 7%)</small>
+                            <small>Thanh toán an toàn & bảo mật</small>
                         </button>
 
                         <button

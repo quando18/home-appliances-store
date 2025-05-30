@@ -1,18 +1,19 @@
-/* Hebekery Auth Pages Styling */
+/* HomeLife Store Auth Pages Styling */
 .login-container {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8fafe 100%);
 }
 
 .login-card {
     padding: 3rem;
-    box-shadow: 0 15px 35px rgba(44, 122, 123, 0.1);
+    box-shadow: 0 15px 35px rgba(25, 118, 210, 0.15);
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     background: white;
+    border: 1px solid rgba(25, 118, 210, 0.1);
 }
 
 .login-logo {
@@ -35,25 +36,27 @@
     justify-content: center;
 }
 
-/* Hebekery Form Styling */
+/* HomeLife Store Form Styling */
 .hebekery-auth-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8fafe 100%);
 }
 
 .hebekery-auth-form {
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(44, 122, 123, 0.1);
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(25, 118, 210, 0.15);
     padding: 3rem;
     margin: 2rem 0;
+    border: 1px solid rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-auth-title {
-    color: #2c7a7b;
+    color: #1565c0;
     font-weight: 700;
     margin-bottom: 1rem;
     text-align: center;
+    font-size: 2rem;
 }
 
 .hebekery-auth-subtitle {
@@ -67,52 +70,57 @@
 }
 
 .hebekery-form-label {
-    color: #2c7a7b;
+    color: #1565c0;
     font-weight: 600;
     margin-bottom: 0.5rem;
     display: block;
+    font-size: 1rem;
 }
 
 .hebekery-form-control {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    font-size: 14px;
+    padding: 15px 20px;
+    border: 2px solid #e3f2fd;
+    border-radius: 12px;
+    font-size: 16px;
     transition: all 0.3s ease;
-    background: #f8f9fa;
+    background: #f8fafe;
 }
 
 .hebekery-form-control:focus {
     outline: none;
-    border-color: #2c7a7b;
+    border-color: #1976d2;
     background: white;
-    box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.1);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-btn-primary {
     width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #2c7a7b 0%, #1a5a5b 100%);
+    padding: 16px;
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     color: white;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 18px;
     transition: all 0.3s ease;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
 }
 
 .hebekery-btn-primary:hover {
-    background: linear-gradient(135deg, #1a5a5b 0%, #0f4142 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(44, 122, 123, 0.3);
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
 }
 
 .hebekery-btn-primary:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hebekery-auth-links {
@@ -123,14 +131,14 @@
 }
 
 .hebekery-auth-link {
-    color: #2c7a7b;
+    color: #1976d2;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .hebekery-auth-link:hover {
-    color: #1a5a5b;
+    color: #1565c0;
     text-decoration: underline;
 }
 
@@ -155,7 +163,7 @@
     align-items: center;
     justify-content: center;
     padding: 3rem;
-    background: linear-gradient(135deg, #2c7a7b 0%, #1a5a5b 100%);
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
     color: white;
     text-align: center;
 }
@@ -169,15 +177,17 @@
 }
 
 .hebekery-brand-title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hebekery-brand-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     opacity: 0.9;
     line-height: 1.6;
+    font-weight: 400;
 }
 
 /* Input group for password visibility toggle */
@@ -200,7 +210,7 @@
 }
 
 .hebekery-input-group-append:hover {
-    color: #2c7a7b;
+    color: #1976d2;
 }
 
 /* Responsive */

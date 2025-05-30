@@ -44,11 +44,11 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
             console.error('Error fetching categories:', error);
             // Set default categories if API fails
             setCategories([
-                {id: 1, name: 'Hạt dinh dưỡng', slug: 'hat-dinh-duong'},
-                {id: 2, name: 'Bánh ăn kiêng', slug: 'banh-an-kieng'},
-                {id: 3, name: 'Trái cây sấy', slug: 'trai-cay-say'},
-                {id: 4, name: 'Granola', slug: 'granola'},
-                {id: 5, name: 'Cookies', slug: 'cookies'}
+                {id: 1, name: 'Dụng cụ bếp', slug: 'dung-cu-bep'},
+                {id: 2, name: 'Đồ gia dụng', slug: 'do-gia-dung'},
+                {id: 3, name: 'Nội thất', slug: 'noi-that'},
+                {id: 4, name: 'Điện tử', slug: 'dien-tu'},
+                {id: 5, name: 'Đồ trang trí', slug: 'do-trang-tri'}
             ]);
         } finally {
             setLoading(false);
@@ -82,7 +82,7 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
                     {/* Desktop navigation */}
                     <div className="nav-menu d-none d-lg-flex">
                         <Nav.Link as={Link} to="/about" className="nav-link-item">
-                            VỀ LifeBakery
+                            VỀ CHÚNG TÔI
                         </Nav.Link>
 
                         <Dropdown className="nav-dropdown">
@@ -105,32 +105,32 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
 
                         <Dropdown className="nav-dropdown">
                             <Dropdown.Toggle as="a" className="nav-link-item dropdown-toggle-custom">
-                                BẠN CẦN <FaChevronDown className="dropdown-arrow" />
+                                DANH MỤC <FaChevronDown className="dropdown-arrow" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/nap-nang-luong">NẠP NĂNG LƯỢNG</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/it-calo">SẢN PHẨM ÍT CALO</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/gi-thap">SẢN PHẨM GI THẤP</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/an-chay">SẢN PHẨM ĂN CHAY</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/dung-cu-bep">DỤNG CỤ BẾP</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/do-gia-dung">ĐỒ GIA DỤNG</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/noi-that">NỘI THẤT</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/dien-tu">ĐIỆN TỬ</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <Nav.Link as={Link} to="/tinh-toan" className="nav-link-item">
-                            TÍNH TOÁN
+                        <Nav.Link as={Link} to="/khuyen-mai" className="nav-link-item">
+                            KHUYẾN MÃI
                         </Nav.Link>
 
-                        <Nav.Link as={Link} to="/tinh-ban" className="nav-link-item">
-                            TÌNH BẠN
+                        <Nav.Link as={Link} to="/blog" className="nav-link-item">
+                            BLOG
                         </Nav.Link>
 
                         <Dropdown className="nav-dropdown">
                             <Dropdown.Toggle as="a" className="nav-link-item dropdown-toggle-custom">
-                                KIẾN THỨC <FaChevronDown className="dropdown-arrow" />
+                                HỖ TRỢ <FaChevronDown className="dropdown-arrow" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/kien-thuc/dinh-duong">DINH DƯỠNG</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/kien-thuc/lam-dep">LÀM ĐẸP</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/kien-thuc/suc-khoe">SỨC KHỎE</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/huong-dan">HƯỚNG DẪN MUA HÀNG</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/bao-hanh">CHÍNH SÁCH BẢO HÀNH</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/doi-tra">CHÍNH SÁCH ĐỔI TRẢ</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 

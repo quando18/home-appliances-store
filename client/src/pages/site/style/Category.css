@@ -1,4 +1,4 @@
-/* Hebekery Category Page Styles */
+/* HomeLife Store Category Page Styles */
 
 .category-container {
     margin-top: 20px;
@@ -19,7 +19,7 @@
 }
 
 .breadcrumb-item a {
-    color: #28a745;
+    color: #1976d2;
     text-decoration: none;
 }
 
@@ -27,9 +27,9 @@
     color: #6c757d;
 }
 
-/* Sidebar - Hebekery Style */
+/* Sidebar - HomeLife Style */
 .category-sidebar {
-    background: #e8f5e8;
+    background: #e3f2fd;
     border-radius: 0;
     padding: 20px 15px;
     margin-bottom: 30px;
@@ -49,10 +49,10 @@
 .sidebar-title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #2d5a2d;
+    color: #1565c0;
     margin-bottom: 15px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #c8e6c8;
+    border-bottom: 1px solid #bbdefb;
     text-transform: uppercase;
 }
 
@@ -68,7 +68,7 @@
 
 .category-list li a {
     text-decoration: none;
-    color: #2d5a2d;
+    color: #1565c0;
     padding: 8px 15px;
     display: block;
     border-radius: 0;
@@ -80,13 +80,13 @@
 
 .category-list li a:hover,
 .category-list li.active a {
-    background-color: #2d5a2d;
+    background-color: #1565c0;
     color: white;
     text-decoration: none;
-    border-left: 3px solid #28a745;
+    border-left: 3px solid #1976d2;
 }
 
-/* Filter sections - Hebekery Style */
+/* Filter sections - HomeLife Style */
 .filter-section {
     margin-bottom: 20px;
 }
@@ -94,7 +94,7 @@
 .filter-title {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #2d5a2d;
+    color: #1565c0;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
@@ -107,9 +107,9 @@
 }
 
 .filter-btn {
-    border: 1px solid #c8e6c8;
+    border: 1px solid #bbdefb;
     background: #fff;
-    color: #2d5a2d;
+    color: #1565c0;
     border-radius: 15px;
     padding: 5px 12px;
     font-size: 12px;
@@ -119,8 +119,8 @@
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: #2d5a2d;
-    border-color: #2d5a2d;
+    background: #1565c0;
+    border-color: #1565c0;
     color: white;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .price-input {
-    border: 1px solid #c8e6c8;
+    border: 1px solid #bbdefb;
     border-radius: 5px;
     padding: 6px 10px;
     font-size: 13px;
@@ -141,9 +141,9 @@
 }
 
 .price-input:focus {
-    border-color: #2d5a2d;
+    border-color: #1565c0;
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(45, 90, 45, 0.15);
+    box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
 }
 
 .price-actions {
@@ -160,18 +160,18 @@
 
 /* Sort dropdown */
 .sort-dropdown {
-    border: 1px solid #c8e6c8;
+    border: 1px solid #bbdefb;
     border-radius: 5px;
     padding: 6px 10px;
     font-size: 13px;
     background: #fff;
-    color: #2d5a2d;
+    color: #1565c0;
 }
 
 .sort-dropdown:focus {
-    border-color: #2d5a2d;
+    border-color: #1565c0;
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(45, 90, 45, 0.15);
+    box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
 }
 
 /* Product grid - Hebekery Style */
@@ -194,7 +194,7 @@
 .products-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #2d5a2d;
+    color: #1565c0;
     margin: 0;
     text-transform: uppercase;
 }
@@ -287,7 +287,7 @@
 }
 
 .hebekery-product-title a:hover {
-    color: #2c7a7b;
+    color: #1976d2;
     text-decoration: none;
 }
 
@@ -302,7 +302,7 @@
 
 .hebekery-current-price {
     font-size: 1.1rem;
-    color: #2c7a7b;
+    color: #1976d2;
     font-weight: 700;
     display: block;
 }
@@ -329,15 +329,15 @@
 }
 
 .hebekery-btn-available {
-    background: linear-gradient(135deg, #2c7a7b, #319795);
+    background: linear-gradient(135deg, #1976d2, #1565c0);
     color: white;
-    box-shadow: 0 4px 15px rgba(44, 122, 123, 0.3);
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
 }
 
 .hebekery-btn-available:hover {
-    background: linear-gradient(135deg, #285e61, #2c7a7b);
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(44, 122, 123, 0.4);
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
 }
 
 .hebekery-btn-unavailable {
@@ -358,7 +358,7 @@
 }
 
 .product-status.btn-success {
-    background: #28a745;
+    background: #1976d2;
     color: white;
 }
 
@@ -381,15 +381,15 @@
     z-index: 2;
 }
 
-/* Pagination - Hebekery Style */
+/* Pagination - HomeLife Style */
 .pagination {
     justify-content: center;
     margin-top: 25px;
 }
 
 .page-link {
-    color: #2d5a2d;
-    border-color: #c8e6c8;
+    color: #1565c0;
+    border-color: #bbdefb;
     padding: 6px 10px;
     font-size: 14px;
     font-weight: 500;
@@ -399,13 +399,13 @@
 
 .page-link:hover {
     color: #fff;
-    background-color: #2d5a2d;
-    border-color: #2d5a2d;
+    background-color: #1565c0;
+    border-color: #1565c0;
 }
 
 .page-item.active .page-link {
-    background-color: #2d5a2d;
-    border-color: #2d5a2d;
+    background-color: #1565c0;
+    border-color: #1565c0;
     color: white;
 }
 
@@ -422,7 +422,7 @@
 .category-title-section h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #2d5a2d;
+    color: #1565c0;
     margin: 0;
     text-transform: uppercase;
 }

@@ -99,10 +99,10 @@ const Login = () => {
 							alt="HeBekery Logo"
 							className="hebekery-brand-logo"
 						/> */}
-						<h1 className="hebekery-brand-title">HeBekery</h1>
+						<h1 className="hebekery-brand-title">HomeLife Store</h1>
 						<p className="hebekery-brand-subtitle">
-							Chào mừng bạn đến với HeBekery - nơi mang đến những sản phẩm bánh kẹo chất lượng cao,
-							được làm từ những nguyên liệu tươi ngon nhất.
+							Chào mừng bạn đến với HomeLife Store - nơi mang đến những sản phẩm đồ gia dụng chất lượng cao,
+							phục vụ mọi nhu cầu trong gia đình bạn.
 						</p>
 					</div>
 				</Col>

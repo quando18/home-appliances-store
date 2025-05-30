@@ -1,25 +1,27 @@
-/* Cart Page Styles - Hebekery Design */
+/* Cart Page Styles - HomeLife Store Design */
 .hebekery-cart-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f0fe 100%);
     min-height: 80vh;
 }
 
 .hebekery-cart-header {
-    background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
     color: white;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 20px;
     margin-bottom: 30px;
     text-align: center;
+    box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
 }
 
 .hebekery-cart-title {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 2.2rem;
+    font-weight: 700;
     margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hebekery-cart-content {
@@ -31,21 +33,32 @@
 
 .hebekery-cart-items {
     background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-cart-item {
     display: flex;
     align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-    gap: 15px;
+    padding: 25px;
+    border-bottom: 1px solid #f0f0f0;
+    gap: 20px;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.hebekery-cart-item:hover {
+    background: #f8fafe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-cart-item:last-child {
     border-bottom: none;
+    margin-bottom: 0;
 }
 
 .hebekery-item-checkbox {
@@ -53,160 +66,195 @@
 }
 
 .hebekery-item-image {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    border-radius: 15px;
+    border: 2px solid #e3f2fd;
+    transition: all 0.3s ease;
+}
+
+.hebekery-item-image:hover {
+    border-color: #1976d2;
+    transform: scale(1.05);
 }
 
 .hebekery-item-details {
     flex: 1;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .hebekery-item-name {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
 .hebekery-item-price {
-    color: #2d7d32;
-    font-weight: bold;
-    font-size: 1rem;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 .hebekery-quantity-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+    gap: 12px;
+    margin: 15px 0;
+    background: #f8fafe;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #e3f2fd;
 }
 
 .hebekery-quantity-btn {
-    width: 35px;
-    height: 35px;
-    border: 1px solid #ddd;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #1976d2;
     background: white;
-    border-radius: 6px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    color: #1976d2;
 }
 
 .hebekery-quantity-btn:hover {
-    background: #f0f0f0;
-    border-color: #2d7d32;
+    background: #1976d2;
+    color: white;
+    transform: scale(1.1);
 }
 
 .hebekery-quantity-input {
-    width: 60px;
+    width: 70px;
     text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 8px;
+    border: 2px solid #e3f2fd;
+    border-radius: 10px;
+    padding: 10px;
     font-weight: bold;
+    background: white;
+    color: #1976d2;
 }
 
 .hebekery-remove-btn {
-    background: #dc3545;
+    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
+    border-radius: 12px;
+    padding: 12px 16px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
 }
 
 .hebekery-remove-btn:hover {
-    background: #c82333;
+    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
 }
 
 .hebekery-cart-summary {
     background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 20px;
     height: fit-content;
+    border: 1px solid rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-summary-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1565c0;
+    margin-bottom: 25px;
     text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e3f2fd;
 }
 
 .hebekery-summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f7fa;
+    font-size: 1rem;
 }
 
 .hebekery-summary-row:last-child {
     border-bottom: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #2d7d32;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1976d2;
+    background: #f8fafe;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 10px;
 }
 
 .hebekery-checkout-btn {
     width: 100%;
-    background: linear-gradient(135deg, #2d7d32 0%, #388e3c 100%);
+    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 15px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 15px;
+    padding: 18px;
+    font-size: 1.2rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 20px;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
 }
 
 .hebekery-checkout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(45, 125, 50, 0.3);
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
 }
 
 .hebekery-checkout-btn:disabled {
-    background: #ccc;
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hebekery-continue-shopping {
-    background: #6c757d;
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
+    border-radius: 12px;
+    padding: 15px 25px;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.2s;
-    margin-top: 15px;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
 }
 
 .hebekery-continue-shopping:hover {
-    background: #5a6268;
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
     color: white;
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
 }
 
 .hebekery-clear-cart {
@@ -246,12 +294,14 @@
 .hebekery-select-all {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    gap: 12px;
+    padding: 18px 25px;
+    background: linear-gradient(135deg, #f8fafe 0%, #e3f2fd 100%);
+    border-radius: 15px;
+    margin-bottom: 25px;
     font-weight: 600;
+    border: 1px solid #bbdefb;
+    color: #1565c0;
 }
 
 /* Responsive */
@@ -260,18 +310,18 @@
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .hebekery-cart-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
-    
+
     .hebekery-item-details {
         margin-left: 0;
         width: 100%;
     }
-    
+
     .hebekery-quantity-controls {
         justify-content: center;
         width: 100%;
@@ -280,26 +330,29 @@
 
 /* Promotion Banner */
 .hebekery-promotion-banner {
-    background: linear-gradient(135deg, #fbc02d 0%, #ffeb3b 100%);
+    background: linear-gradient(135deg, #ff9800 0%, #ffb74d 100%);
     color: #333;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 25px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    border: 1px solid rgba(255, 152, 0, 0.2);
 }
 
 .hebekery-shipping-info {
-    background: #e8f5e8;
-    border: 1px solid #c3e6c3;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f8fafe 100%);
+    border: 1px solid #bbdefb;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
 }
 
 .hebekery-shipping-info h6 {
-    color: #2d7d32;
-    margin-bottom: 10px;
+    color: #1565c0;
+    margin-bottom: 15px;
+    font-weight: 700;
 }
 
 .hebekery-shipping-option {

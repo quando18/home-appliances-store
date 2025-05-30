@@ -1,4 +1,4 @@
-/* Hebekery Product Detail Page Styles */
+/* HomeLife Store Product Detail Page Styles */
 
 /* Breadcrumb */
 .breadcrumb-section {
@@ -15,7 +15,7 @@
 }
 
 .breadcrumb-item a {
-    color: #28a745;
+    color: #1976d2;
     text-decoration: none;
 }
 
@@ -70,7 +70,7 @@
 
 .image-thumbnails .thumbnail:hover,
 .image-thumbnails .thumbnail.active {
-    border-color: #28a745;
+    border-color: #1976d2;
 }
 
 /* Product Info */
@@ -105,7 +105,7 @@
 .current-price {
     font-size: 2rem;
     font-weight: 700;
-    color: #28a745;
+    color: #1976d2;
     margin-bottom: 20px;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .add-to-cart-btn {
-    background: #28a745;
+    background: #1976d2;
     color: white;
     border: none;
     border-radius: 25px;
@@ -223,7 +223,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background: #218838;
+    background: #1565c0;
     transform: translateY(-2px);
 }
 
@@ -251,7 +251,7 @@
 }
 
 .delivery-info {
-    background-color: #e8f5e8;
+    background-color: #e3f2fd;
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -260,7 +260,7 @@
 .delivery-info h6 {
     font-size: 14px;
     margin-bottom: 8px;
-    color: #28a745;
+    color: #1976d2;
     font-weight: 600;
 }
 
@@ -290,13 +290,13 @@
 
 .nav-tabs .nav-link:hover {
     border-color: transparent;
-    color: #28a745;
+    color: #1976d2;
 }
 
 .nav-tabs .nav-link.active {
     background: none;
-    border-color: transparent transparent #28a745 transparent;
-    color: #28a745;
+    border-color: transparent transparent #1976d2 transparent;
+    color: #1976d2;
 }
 
 .tab-content {
@@ -315,7 +315,7 @@
 .rating-average {
     font-size: 2.5rem;
     font-weight: 600;
-    color: #28a745;
+    color: #1976d2;
 }
 
 .rating-bars .progress {
@@ -340,8 +340,8 @@
 
 .rating-filters .btn:hover,
 .rating-filters .btn.active {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #1976d2;
+    border-color: #1976d2;
     color: white;
 }
 
@@ -403,7 +403,7 @@
 .price-small {
     font-size: 16px;
     font-weight: 700;
-    color: #28a745;
+    color: #1976d2;
 }
 
 /* Responsive */

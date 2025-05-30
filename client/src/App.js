@@ -36,6 +36,10 @@ const Cart = React.lazy(() => import('./pages/site/shopping-cart/Cart'));
 const Checkout = React.lazy(() => import('./pages/site/shopping-cart/Checkout'));
 const Category = React.lazy(() => import('./pages/site/category/Category'));
 const Brand = React.lazy(() => import('./pages/site/brand/Brand'));
+const BlogList = React.lazy(() => import('./pages/site/blog/BlogList'));
+const BlogDetail = React.lazy(() => import('./pages/site/blog/BlogDetail'));
+const BlogTest = React.lazy(() => import('./pages/site/blog/BlogTest'));
+const BlogDetailTest = React.lazy(() => import('./pages/site/blog/BlogDetailTest'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -87,6 +91,26 @@ const App = () => {
                     <Route path="search" element={
                         <Suspense fallback={<div>Loading Search...</div>}>
                             <Search />
+                        </Suspense>
+                    } />
+                    <Route path="blog" element={
+                        <Suspense fallback={<div>Loading Blog...</div>}>
+                            <BlogList />
+                        </Suspense>
+                    } />
+                    <Route path="blog/:slug" element={
+                        <Suspense fallback={<div>Loading Blog Detail...</div>}>
+                            <BlogDetail />
+                        </Suspense>
+                    } />
+                    <Route path="blog-test" element={
+                        <Suspense fallback={<div>Loading Blog Test...</div>}>
+                            <BlogTest />
+                        </Suspense>
+                    } />
+                    <Route path="blog-test/:slug" element={
+                        <Suspense fallback={<div>Loading Blog Detail Test...</div>}>
+                            <BlogDetailTest />
                         </Suspense>
                     } />
                 </Route>

@@ -1,4 +1,4 @@
-/* Hebekery Style Header */
+/* HomeLife Store Header */
 .fixed-header {
     position: fixed;
     top: 0;
@@ -11,7 +11,7 @@
 
 /* Top notification bar */
 .top-notification {
-    background: #28a745;
+    background: #1976d2;
     color: white;
     text-align: center;
     padding: 8px 0;
@@ -38,13 +38,13 @@
 .brand-text {
     font-size: 28px;
     font-weight: 700;
-    color: #00b4d8;
+    color: #1976d2;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .brand-text:hover {
-    color: #0077b6;
+    color: #1565c0;
     text-decoration: none;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .nav-link-item:hover {
-    color: #00b4d8 !important;
+    color: #1976d2 !important;
     text-decoration: none;
 }
 
@@ -124,13 +124,13 @@
 
 .dropdown-menu-custom .dropdown-item:hover {
     background-color: #f8f9fa;
-    color: #00b4d8 !important;
+    color: #1976d2 !important;
     padding-left: 30px;
 }
 
 .dropdown-menu-custom .dropdown-item:active {
     background-color: #e9ecef;
-    color: #00b4d8 !important;
+    color: #1976d2 !important;
 }
 
 /* Legacy dropdown styles */
@@ -151,7 +151,7 @@
 
 .dropdown-item:hover {
     background-color: #f8f9fa;
-    color: #28a745 !important;
+    color: #1976d2 !important;
 }
 
 /* Search bar */
@@ -173,7 +173,7 @@
 }
 
 .search-input:focus {
-    border-color: #28a745;
+    border-color: #1976d2;
 }
 
 .search-btn {
@@ -181,7 +181,7 @@
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
-    background: #28a745;
+    background: #1976d2;
     border: none;
     border-radius: 50%;
     width: 35px;
@@ -195,10 +195,10 @@
 }
 
 .search-btn:hover {
-    background: #218838;
+    background: #1565c0;
 }
 
-/* Hebekery Header Actions */
+/* HomeLife Header Actions */
 .hebekery-header-actions {
     display: flex;
     align-items: center;
@@ -210,7 +210,7 @@
 .hebekery-user-icon,
 .hebekery-cart-icon {
     position: relative;
-    color: #2c7a7b;
+    color: #1976d2;
     font-size: 24px;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -222,24 +222,24 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    background: rgba(44, 122, 123, 0.1);
+    background: rgba(25, 118, 210, 0.1);
 }
 
 .hebekery-search-icon:hover,
 .hebekery-user-icon:hover,
 .hebekery-cart-icon:hover {
-    color: #1a5a5b;
+    color: #1565c0;
     text-decoration: none;
-    background: rgba(44, 122, 123, 0.2);
+    background: rgba(25, 118, 210, 0.2);
     transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(44, 122, 123, 0.3);
+    box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
 }
 
 .hebekery-cart-badge {
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #ff6b35;
+    background: #ff5722;
     color: white;
     border-radius: 50%;
     width: 18px;
@@ -250,7 +250,7 @@
     font-size: 10px;
     font-weight: bold;
     border: 2px solid white;
-    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 2px 8px rgba(255, 87, 34, 0.4);
 }
 
 .hebekery-user-dropdown .dropdown-toggle {

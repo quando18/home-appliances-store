@@ -450,7 +450,7 @@ const Category = () => {
                                                         disabled={product.number <= 0}
                                                         onClick={() => handleAddToCart(product)}
                                                     >
-                                                        {product.number > 0 ? 'Thêm vào giỏ' : 'Cháy hàng'}
+                                                        {product.number > 0 ? 'Thêm vào giỏ' : 'Hết hàng'}
                                                     </button>
                                                 </div>
                                             </div>

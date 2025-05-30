@@ -131,7 +131,8 @@ const Home = () => {
         <section className="category-cards-section">
             <Container>
                 <div className="section-header text-center mb-5">
-                    <h2 className="section-title">SẢN PHẨM CỦA HEBEKERY</h2>
+                    <h2 className="section-title">DANH MỤC SẢN PHẨM</h2>
+                    <p className="section-subtitle">Khám phá bộ sưu tập đồ gia dụng chất lượng cao</p>
                 </div>
                 <Row className="justify-content-center">
                     {loadingCategory ? (
@@ -139,14 +140,14 @@ const Home = () => {
                     ) : (
                         <>
                             {categories.map((category, index) => {
-                                // Định nghĩa màu sắc cho từng category theo thiết kế Hebekery
+                                // Định nghĩa màu sắc cho từng category theo thiết kế đồ gia dụng
                                 const categoryColors = [
-                                    { bg: 'linear-gradient(135deg, #2d7d32 0%, #388e3c 100%)', color: '#ffffff' }, // Green
-                                    { bg: 'linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%)', color: '#ffffff' }, // Purple
-                                    { bg: 'linear-gradient(135deg, #f57c00 0%, #ff9800 100%)', color: '#ffffff' }, // Orange
-                                    { bg: 'linear-gradient(135deg, #fbc02d 0%, #ffeb3b 100%)', color: '#333333' }, // Yellow
-                                    { bg: 'linear-gradient(135deg, #0288d1 0%, #03a9f4 100%)', color: '#ffffff' }, // Blue
-                                    { bg: 'linear-gradient(135deg, #d32f2f 0%, #f44336 100%)', color: '#ffffff' }  // Red
+                                    { bg: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)', color: '#ffffff' }, // Blue
+                                    { bg: 'linear-gradient(135deg, #424242 0%, #616161 100%)', color: '#ffffff' }, // Gray
+                                    { bg: 'linear-gradient(135deg, #2e7d32 0%, #388e3c 100%)', color: '#ffffff' }, // Green
+                                    { bg: 'linear-gradient(135deg, #d84315 0%, #ff5722 100%)', color: '#ffffff' }, // Orange
+                                    { bg: 'linear-gradient(135deg, #6a1b9a 0%, #9c27b0 100%)', color: '#ffffff' }, // Purple
+                                    { bg: 'linear-gradient(135deg, #c62828 0%, #f44336 100%)', color: '#ffffff' }  // Red
                                 ];
                                 const colorScheme = categoryColors[index % categoryColors.length];
 

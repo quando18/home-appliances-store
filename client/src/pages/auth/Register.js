@@ -89,9 +89,9 @@ const Register = () => {
 							alt="HeBekery Logo"
 							className="hebekery-brand-logo"
 						/> */}
-						<h1 className="hebekery-brand-title">HeBekery</h1>
+						<h1 className="hebekery-brand-title">HomeLife Store</h1>
 						<p className="hebekery-brand-subtitle">
-							Tham gia cộng đồng HeBekery để khám phá những sản phẩm bánh kẹo tuyệt vời
+							Tham gia cộng đồng HomeLife Store để khám phá những sản phẩm đồ gia dụng chất lượng cao
 							và nhận được những ưu đãi đặc biệt dành riêng cho thành viên.
 						</p>
 					</div>

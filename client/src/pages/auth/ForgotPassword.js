@@ -84,10 +84,10 @@ const ForgotPassword = () => {
 							alt="HeBekery Logo"
 							className="hebekery-brand-logo"
 						/> */}
-						<h1 className="hebekery-brand-title">HeBekery</h1>
+						<h1 className="hebekery-brand-title">HomeLife Store</h1>
 						<p className="hebekery-brand-subtitle">
 							Đừng lo lắng! Chúng tôi sẽ giúp bạn khôi phục lại mật khẩu
-							để tiếp tục trải nghiệm mua sắm tại HeBekery.
+							để tiếp tục trải nghiệm mua sắm tại HomeLife Store.
 						</p>
 					</div>
 				</Col>

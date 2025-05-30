@@ -186,14 +186,14 @@ const ProductDetail = () => {
                                     )}
                                 </div>
 
-                                
+
 
                                 {/* Delivery Info */}
                                 <div className="delivery-info">
                                     <h6><FaTruck className="me-2" />Thông tin vận chuyển</h6>
                                     <div>
-                                        <Badge bg="success" className="me-2">Giao siêu tốc 2h</Badge>
-                                        <span>Miễn phí vận chuyển cho đơn hàng từ 299k</span>
+                                        <Badge bg="success" className="me-2">Giao hàng nhanh</Badge>
+                                        <span>Miễn phí vận chuyển cho đơn hàng từ 500k</span>
                                     </div>
                                 </div>
 
@@ -243,15 +243,15 @@ const ProductDetail = () => {
                                     <div className="product-policies">
                                         <div className="d-flex align-items-center mb-2">
                                             <FaTruck className="me-2 text-success" />
-                                            <span>Giao hàng miễn phí</span>
+                                            <span>Giao hàng toàn quốc</span>
                                         </div>
                                         <div className="d-flex align-items-center mb-2">
                                             <FaShieldAlt className="me-2 text-success" />
-                                            <span>Đổi trả miễn phí trong 30 ngày</span>
+                                            <span>Bảo hành chính hãng</span>
                                         </div>
                                         <div className="d-flex align-items-center">
                                             <FaExchangeAlt className="me-2 text-success" />
-                                            <span>Hàng chính hãng 100%</span>
+                                            <span>Đổi trả trong 7 ngày</span>
                                         </div>
                                     </div>
                                 </div>
