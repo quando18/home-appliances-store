@@ -8,23 +8,23 @@ const Footer = ({information}) => {
         <footer className="footer">
             <Container>
                 <Row className="footer-main">
-                    {/* Thực phẩm dinh dưỡng Hebekery */}
+                    {/* HomeLife Store */}
                     <Col lg={4} md={6} className="footer-section">
-                        <h5 className="footer-title">THỰC PHẨM DINH DƯỠNG HEBEKERY</h5>
+                        <h5 className="footer-title">HOMELIFE STORE - ĐỒ GIA DỤNG</h5>
                         <div className="footer-contact-item">
                             <FaPhone className="footer-contact-icon" />
-                            <span>{information?.contact_number || '097 97 64 185'}</span>
+                            <span>{information?.contact_number || '1900 1234'}</span>
                         </div>
                         <div className="footer-contact-item">
                             <FaEnvelope className="footer-contact-icon" />
-                            <span>{information?.email || 'hebekery.hebekery@gmail.com'}</span>
+                            <span>{information?.email || 'info@homelifestore.vn'}</span>
                         </div>
                         <div className="footer-contact-item">
                             <FaMapMarkerAlt className="footer-contact-icon" />
-                            <span>{information?.full_address || '20 Hẻm Ngọc Cầu, Phường Tân Thành, Quận Tân Phú, TP HCM'}</span>
+                            <span>{information?.full_address || '123 Đường ABC, Quận 1, TP. Hồ Chí Minh'}</span>
                         </div>
                         <div className="footer-business-info">
-                            <p>HKD THỰC PHẨM DINH DƯỠNG MTEB - MST: 8293041855-002</p>
+                            <p>CÔNG TY TNHH HOMELIFE STORE - MST: 0123456789</p>
                         </div>
                         <div className="footer-certifications">
                             <div className="cert-placeholder">
@@ -36,15 +36,15 @@ const Footer = ({information}) => {
                         </div>
                     </Col>
 
-                    {/* Về Hebekery */}
+                    {/* Về HomeLife Store */}
                     <Col lg={4} md={6} className="footer-section">
-                        <h5 className="footer-title">VỀ HEBEKERY</h5>
+                        <h5 className="footer-title">VỀ HOMELIFE STORE</h5>
                         <ul className="footer-links">
                             <li><a href="/about">Giới Thiệu</a></li>
-                            <li><a href="/san-pham">Sản Phẩm</a></li>
-                            <li><a href="/kien-thuc/dinh-duong">Kiến thức dinh dưỡng</a></li>
-                            <li><a href="/chuong-trinh-thanh-vien">Chương trình thành viên</a></li>
-                            <li><a href="/lien-he">Liên hệ</a></li>
+                            <li><a href="/">Sản Phẩm</a></li>
+                            <li><a href="/blog">Blog & Tin Tức</a></li>
+                            <li><a href="/contact">Liên hệ</a></li>
+                            <li><a href="/cart">Giỏ hàng</a></li>
                         </ul>
                     </Col>
 
@@ -80,7 +80,7 @@ const Footer = ({information}) => {
                             </a>
                         </div>
                         <div className="copyright">
-                            <p>© Bản quyền thuộc về HEBEKERY - Hebekery của Việt Nam</p>
+                            <p>© Bản quyền thuộc về HOMELIFE STORE - Đồ gia dụng chất lượng cao</p>
                         </div>
                     </Col>
                 </Row>

@@ -45,9 +45,9 @@ const AdminRoutes = () => {
     }
 
     console.info("===========[AdminLayout] ===========[user] : ",user);
-    // if(user && user.user_type !== "ADMIN") {
-    //     return <Navigate to="/unauthorized" />;
-    // }
+    if(user && user.user_type !== "ADMIN") {
+        return <Navigate to="/unauthorized" />;
+    }
 
     return (
         <Routes>

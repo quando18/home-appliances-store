@@ -7,7 +7,9 @@ const UnauthorizedPage = () => {
     const navigate = useNavigate();
 
     const goBack = () => {
-        window.history.back(); // Quay lại trang trước đó
+        startTransition(() => {
+            navigate("/");
+        });
     };
     const goHome = () => {
         startTransition(() => {

@@ -38,7 +38,10 @@ const OrderManager = () => {
 
     const fetchOrdersWithParams = async (params) => {
         try {
+            console.log('Fetching orders with params:', params);
+            console.log('Token in localStorage:', localStorage.getItem('token'));
             const response = await apiOrderService.getLists(params);
+            console.log('Orders response:', response);
             setOrders(response.data.data);
             setMeta(response.data.meta);
         } catch (error) {

@@ -40,6 +40,8 @@ const BlogList = React.lazy(() => import('./pages/site/blog/BlogList'));
 const BlogDetail = React.lazy(() => import('./pages/site/blog/BlogDetail'));
 const BlogTest = React.lazy(() => import('./pages/site/blog/BlogTest'));
 const BlogDetailTest = React.lazy(() => import('./pages/site/blog/BlogDetailTest'));
+const About = React.lazy(() => import('./pages/site/about/About'));
+const Contact = React.lazy(() => import('./pages/site/contact/Contact'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -111,6 +113,16 @@ const App = () => {
                     <Route path="blog-test/:slug" element={
                         <Suspense fallback={<div>Loading Blog Detail Test...</div>}>
                             <BlogDetailTest />
+                        </Suspense>
+                    } />
+                    <Route path="about" element={
+                        <Suspense fallback={<div>Loading About...</div>}>
+                            <About />
+                        </Suspense>
+                    } />
+                    <Route path="contact" element={
+                        <Suspense fallback={<div>Loading Contact...</div>}>
+                            <Contact />
                         </Suspense>
                     } />
                 </Route>

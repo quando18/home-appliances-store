@@ -18,6 +18,9 @@ exports.getAll = async (req, res) => {
     try {
         const { page, page_size: pageSize, code, status, payment_status } = req.query;
         const userId = req.user.id;
+        console.log('User ID from token:', userId);
+        console.log('Query params:', { page, pageSize, code, status, payment_status });
+
         const result = await Model.getAll(
             Number(page || 1),
             Number(pageSize || 10),
@@ -27,9 +30,10 @@ exports.getAll = async (req, res) => {
             payment_status
         );
 
+        console.log('Orders result:', result);
         return successResponse(res, { meta: result.meta, data: result.data }, 'Get list of data successfully');
     } catch (err) {
-        console.error(err);
+        console.error('Error in getAll orders:', err);
         return errorResponse(res);
     }
 };

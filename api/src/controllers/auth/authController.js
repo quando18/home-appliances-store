@@ -43,6 +43,7 @@ exports.register = async (req, res) => {
             password: hashedPassword,
             avatar,
             phone,
+            status: 2,
             user_type : user_type || "USER"
         };
 

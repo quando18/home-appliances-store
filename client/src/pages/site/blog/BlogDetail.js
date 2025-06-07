@@ -30,8 +30,8 @@ const BlogDetail = () => {
             setError(null);
 
             const response = await blogService.getById(postId);
-            if (response.data.success) {
-                const postData = response.data.data.data;
+            if (response.status === 'success') {
+                const postData = response.data.data;
                 setPost(postData);
 
                 // Fetch related posts from same menu

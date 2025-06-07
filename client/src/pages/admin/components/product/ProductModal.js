@@ -23,13 +23,15 @@ const ProductModal = ({
                           handleImageChange,
                           handleAddEditProduct,
                           loading,
+                          description,
+                          setDescription,
+                          previewAlbumImages,
+                          setPreviewAlbumImages,
                       }) => {
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [productLabels, setProductLabels] = useState([]);
-    const [description, setDescription] = useState(editingProduct?.description || '');
     const [albumImages, setAlbumImages] = useState([]);
-    const [previewAlbumImages, setPreviewAlbumImages] = useState([]);
     const [attributes, setAttributes] = useState([]);
     const [selectedAttributes, setSelectedAttributes] = useState([]);
     const [attributeValues, setAttributeValues] = useState({});
@@ -65,6 +67,34 @@ const ProductModal = ({
         fetchInitialData();
     }, []);
 
+    // Reset form khi modal đóng hoặc editingProduct thay đổi
+    useEffect(() => {
+        if (showProductModal) {
+            if (editingProduct) {
+                // Khi edit, set dữ liệu hiện tại
+                if (setDescription) setDescription(editingProduct.description || '');
+                if (editingProduct.images && setPreviewAlbumImages) {
+                    setPreviewAlbumImages(
+                        editingProduct.images.map((imageUrl) => ({
+                            url: imageUrl,
+                            file: null,
+                        }))
+                    );
+                } else if (setPreviewAlbumImages) {
+                    setPreviewAlbumImages([]);
+                }
+            } else {
+                // Khi thêm mới, reset tất cả
+                if (setDescription) setDescription('');
+                setAlbumImages([]);
+                if (setPreviewAlbumImages) setPreviewAlbumImages([]);
+                setSelectedAttributes([]);
+                setAttributeValues({});
+                setVariants([]);
+            }
+        }
+    }, [showProductModal, editingProduct, setDescription, setPreviewAlbumImages]);
+
 
     const quillRef = useRef(null);
 
@@ -77,15 +107,21 @@ const ProductModal = ({
             file: file,
         }));
 
-        setPreviewAlbumImages(prevPreviews => [...prevPreviews, ...newPreviewUrls]);
+        if (setPreviewAlbumImages) {
+            setPreviewAlbumImages(prevPreviews => [...prevPreviews, ...newPreviewUrls]);
+        }
     };
 
     const removeAlbumImage = (index) => {
         setAlbumImages(prevImages => prevImages.filter((_, i) => i !== index));
-        setPreviewAlbumImages(prevPreviews => {
-            URL.revokeObjectURL(prevPreviews[index].url);
-            return prevPreviews.filter((_, i) => i !== index);
-        });
+        if (setPreviewAlbumImages) {
+            setPreviewAlbumImages(prevPreviews => {
+                if (prevPreviews[index] && prevPreviews[index].file) {
+                    URL.revokeObjectURL(prevPreviews[index].url);
+                }
+                return prevPreviews.filter((_, i) => i !== index);
+            });
+        }
     };
 
     const handleSelectAttributes = async (selectedOptions) => {
@@ -227,6 +263,13 @@ const ProductModal = ({
                                         </Form.Group>
                                         <Form.Group className="mb-3">
                                             <Form.Label>Album ảnh sản phẩm</Form.Label>
+                                            <Form.Control
+                                                type="file"
+                                                multiple
+                                                accept="image/*"
+                                                onChange={handleAlbumImageChange}
+                                                className="mb-2"
+                                            />
                                             <div className="album-images-container">
                                                 <Row className="g-2">
                                                     {previewAlbumImages.map((preview, index) => (

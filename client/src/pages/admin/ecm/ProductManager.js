@@ -86,10 +86,17 @@ const ProductManager = () => {
             } else {
                 await productService.add(productData);
             }
+
+            // Reset form và state
             setEditingProduct(null);
             setShowProductModal(false);
-            // Sau khi thêm/sửa sản phẩm, lấy lại danh sách với cùng tham số phân trang
-            // Không cần gọi fetchProducts ở đây vì useEffect sẽ được kích hoạt khi searchParams thay đổi
+            setProductImage(null);
+            setDescription('');
+            setPreviewAlbumImages([]);
+
+            // Reload danh sách sản phẩm với tham số hiện tại
+            const currentParams = Object.fromEntries([...searchParams]);
+            await fetchProducts({ ...currentParams, page: currentPage, page_size: currentParams.page_size || 10 });
         } catch (error) {
             console.error("Error adding/updating product:", error);
         }
@@ -113,9 +120,12 @@ const ProductManager = () => {
     const handleDeleteProduct = async () => {
         try {
             await productService.delete(productToDelete.id);
-            // Sau khi xóa sản phẩm, lấy lại danh sách với cùng tham số phân trang
-            // Không cần gọi fetchProducts ở đây vì useEffect sẽ được kích hoạt khi searchParams thay đổi
             setShowDeleteModal(false);
+            setProductToDelete(null);
+
+            // Reload danh sách sản phẩm với tham số hiện tại
+            const currentParams = Object.fromEntries([...searchParams]);
+            await fetchProducts({ ...currentParams, page: currentPage, page_size: currentParams.page_size || 10 });
         } catch (error) {
             console.error("Error deleting product:", error);
         }
@@ -132,6 +142,7 @@ const ProductManager = () => {
 
         if (product !== null) {
             setProductImage(product.avatar);
+            setDescription(product.description || '');
             // Nếu sản phẩm có album, chuyển album thành mảng đối tượng xem trước
             if (product.images) {
                 setPreviewAlbumImages(
@@ -144,6 +155,9 @@ const ProductManager = () => {
                 setPreviewAlbumImages([]);
             }
         } else {
+            // Reset form khi thêm mới
+            setProductImage(null);
+            setDescription('');
             setPreviewAlbumImages([]);
         }
     };
@@ -361,7 +375,8 @@ const ProductManager = () => {
                 setDescription={setDescription}
                 handleAddEditProduct={handleAddEditProduct}
                 loading={loading}
-                // previewAlbumImages={previewAlbumImages}
+                previewAlbumImages={previewAlbumImages}
+                setPreviewAlbumImages={setPreviewAlbumImages}
             />
 
             <DeleteConfirmationModal

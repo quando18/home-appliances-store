@@ -112,7 +112,7 @@ const ProductDetail = () => {
                         <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/san-pham" }}>
                             Sản phẩm
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item active>
+                        <Breadcrumb.Item>
                             {product.name}
                         </Breadcrumb.Item>
                     </Breadcrumb>

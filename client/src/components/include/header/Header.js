@@ -90,7 +90,6 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
                                 SẢN PHẨM <FaChevronDown className="dropdown-arrow" />
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/san-pham-moi">SẢN PHẨM MỚI</Dropdown.Item>
                                 {loading ? (
                                     <Dropdown.Item disabled>Đang tải...</Dropdown.Item>
                                 ) : (
@@ -103,47 +102,15 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <Dropdown className="nav-dropdown">
-                            <Dropdown.Toggle as="a" className="nav-link-item dropdown-toggle-custom">
-                                DANH MỤC <FaChevronDown className="dropdown-arrow" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/dung-cu-bep">DỤNG CỤ BẾP</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/do-gia-dung">ĐỒ GIA DỤNG</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/noi-that">NỘI THẤT</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/dien-tu">ĐIỆN TỬ</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                        <Nav.Link as={Link} to="/khuyen-mai" className="nav-link-item">
-                            KHUYẾN MÃI
-                        </Nav.Link>
+            
 
                         <Nav.Link as={Link} to="/blog" className="nav-link-item">
                             BLOG
                         </Nav.Link>
 
-                        <Dropdown className="nav-dropdown">
-                            <Dropdown.Toggle as="a" className="nav-link-item dropdown-toggle-custom">
-                                HỖ TRỢ <FaChevronDown className="dropdown-arrow" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/huong-dan">HƯỚNG DẪN MUA HÀNG</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/bao-hanh">CHÍNH SÁCH BẢO HÀNH</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/doi-tra">CHÍNH SÁCH ĐỔI TRẢ</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                        <Dropdown className="nav-dropdown">
-                            <Dropdown.Toggle as="a" className="nav-link-item dropdown-toggle-custom">
-                                LIÊN HỆ <FaChevronDown className="dropdown-arrow" />
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className="dropdown-menu-custom">
-                                <Dropdown.Item as={Link} to="/lien-he">THÔNG TIN LIÊN HỆ</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/cua-hang">HỆ THỐNG CỬA HÀNG</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/ho-tro">HỖ TRỢ KHÁCH HÀNG</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Nav.Link as={Link} to="/contact" className="nav-link-item">
+                            Liên hệ
+                        </Nav.Link>
                     </div>
 
                     {/* Header actions - Hebekery style */}
