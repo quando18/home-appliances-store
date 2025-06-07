@@ -81,9 +81,9 @@ const User = {
 
     // Tạo phương thức create để tạo người dùng mới
     create: async (userData) => {
-        const query = `INSERT INTO ${User.tableName} (name, email, password, avatar, phone, user_type) VALUES (?, ?, ?, ?, ?, ?)`;
-        const { name, email, password, avatar, phone, user_type } = userData;
-        const [result] = await db.query(query, [name, email, password, avatar, phone, user_type]);
+        const query = `INSERT INTO ${User.tableName} (name, email, password, avatar, phone, status, user_type) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const { name, email, password, avatar, phone, status, user_type } = userData;
+        const [result] = await db.query(query, [name, email, password, avatar, phone, status, user_type]);
 		if(user_type == 'SHIPPER'){
 
 			// Xây dựng câu lệnh SQL

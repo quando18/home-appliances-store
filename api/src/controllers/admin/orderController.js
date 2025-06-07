@@ -1,8 +1,8 @@
 const Model = require('../../models/Order');
+const Product = require('../../models/Product');
 const { successResponse, errorResponse } = require("../../utils/response");
 const Article = require("../../models/Post");
 const { orderMail } = require( '../../services/sendMailService' );
-// const Model = require("../../models/Product");
 
 // Lấy tất cả đơn hàng
 exports.getAll = async (req, res) => {
@@ -78,7 +78,50 @@ exports.update = async (req, res) => {
     try {
         const id = req.params.id;
         const orderData = req.body;
+
+        // Lấy thông tin đơn hàng hiện tại để so sánh trạng thái thanh toán
+        const existingOrder = await Model.findById(id);
+        if (!existingOrder) {
+            return errorResponse(res, 'Order not found', 404);
+        }
+
+        // Cập nhật đơn hàng
         const newOrder = await Model.updateById(id, orderData);
+
+        // Kiểm tra nếu payment_status chuyển từ trạng thái khác sang "completed"
+        if (existingOrder.payment_status !== 'completed' && orderData.payment_status === 'completed') {
+            console.log('Payment status changed to completed, updating product stock...');
+
+            // Lấy danh sách sản phẩm trong đơn hàng và trừ số lượng
+            for (const product of newOrder.products) {
+                try {
+                    const stockUpdated = await Product.updateStock(product.id, product.qty);
+                    if (!stockUpdated) {
+                        console.warn(`Failed to update stock for product ID: ${product.id}, insufficient stock`);
+                        // Có thể thêm logic xử lý khi không đủ hàng
+                    } else {
+                        console.log(`Updated stock for product ID: ${product.id}, quantity: ${product.qty}`);
+                    }
+                } catch (stockError) {
+                    console.error(`Error updating stock for product ID: ${product.id}:`, stockError);
+                }
+            }
+        }
+
+        // Kiểm tra nếu payment_status chuyển từ "completed" về trạng thái khác (hoàn trả hàng)
+        else if (existingOrder.payment_status === 'completed' && orderData.payment_status !== 'completed') {
+            console.log('Payment status changed from completed, restoring product stock...');
+
+            // Lấy danh sách sản phẩm trong đơn hàng cũ và hoàn trả số lượng
+            for (const product of existingOrder.products) {
+                try {
+                    await Product.restoreStock(product.id, product.qty);
+                    console.log(`Restored stock for product ID: ${product.id}, quantity: ${product.qty}`);
+                } catch (stockError) {
+                    console.error(`Error restoring stock for product ID: ${product.id}:`, stockError);
+                }
+            }
+        }
 
         return successResponse(res, { data: newOrder }, 'Order update successfully', 201);
     } catch (err) {
@@ -90,12 +133,17 @@ exports.update = async (req, res) => {
 // Cập nhật trạng thái đơn hàng
 exports.updateStatus = async (req, res) => {
     try {
-        const { status } = req.body;
+        const { status, payment_status } = req.body;
 
         // Kiểm tra trạng thái hợp lệ
         const validStatuses = ['pending', 'completed', 'processing', 'canceled'];
-        if (!validStatuses.includes(status)) {
+        if (status && !validStatuses.includes(status)) {
             return errorResponse(res, 'Invalid status', 400);
+        }
+
+        const validPaymentStatuses = ['pending', 'completed', 'refunding', 'refunded', 'fraud', 'failed'];
+        if (payment_status && !validPaymentStatuses.includes(payment_status)) {
+            return errorResponse(res, 'Invalid payment status', 400);
         }
 
         const order = await Model.findById(req.params.id);
@@ -103,11 +151,56 @@ exports.updateStatus = async (req, res) => {
             return errorResponse(res, 'Order not found', 404);
         }
 
-        // Cập nhật trạng thái
-        order.status = status;
-        await order.save();
+        const oldPaymentStatus = order.payment_status;
 
-        return successResponse(res, { data: order }, 'Order status updated successfully');
+        // Cập nhật trạng thái
+        if (status) order.status = status;
+        if (payment_status) order.payment_status = payment_status;
+
+        // Lưu thay đổi (giả sử có method save, nếu không thì dùng updateById)
+        const updateData = {};
+        if (status) updateData.status = status;
+        if (payment_status) updateData.payment_status = payment_status;
+
+        const updatedOrder = await Model.updateById(req.params.id, {
+            ...order,
+            ...updateData,
+            products: order.products // Giữ nguyên products
+        });
+
+        // Xử lý thay đổi số lượng sản phẩm khi payment_status thay đổi
+        if (payment_status && oldPaymentStatus !== payment_status) {
+            if (oldPaymentStatus !== 'completed' && payment_status === 'completed') {
+                console.log('Payment status changed to completed, updating product stock...');
+
+                for (const product of order.products) {
+                    try {
+                        const stockUpdated = await Product.updateStock(product.id, product.qty);
+                        if (!stockUpdated) {
+                            console.warn(`Failed to update stock for product ID: ${product.id}, insufficient stock`);
+                        } else {
+                            console.log(`Updated stock for product ID: ${product.id}, quantity: ${product.qty}`);
+                        }
+                    } catch (stockError) {
+                        console.error(`Error updating stock for product ID: ${product.id}:`, stockError);
+                    }
+                }
+            }
+            else if (oldPaymentStatus === 'completed' && payment_status !== 'completed') {
+                console.log('Payment status changed from completed, restoring product stock...');
+
+                for (const product of order.products) {
+                    try {
+                        await Product.restoreStock(product.id, product.qty);
+                        console.log(`Restored stock for product ID: ${product.id}, quantity: ${product.qty}`);
+                    } catch (stockError) {
+                        console.error(`Error restoring stock for product ID: ${product.id}:`, stockError);
+                    }
+                }
+            }
+        }
+
+        return successResponse(res, { data: updatedOrder }, 'Order status updated successfully');
     } catch (err) {
         console.error(err);
         return errorResponse(res, err?.message || 'Server error');

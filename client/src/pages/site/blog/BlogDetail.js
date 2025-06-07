@@ -150,7 +150,7 @@ const BlogDetail = () => {
                     <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/blog" }}>
                         Blog
                     </Breadcrumb.Item>
-                    <Breadcrumb.Item active>
+                    <Breadcrumb.Item>
                         {post.name}
                     </Breadcrumb.Item>
                 </Breadcrumb>

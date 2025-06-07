@@ -1,4 +1,6 @@
 const Model = require("../../models/Order");
+const Product = require("../../models/Product");
+const db = require("../../config/dbMysql");
 const {successResponse, errorResponse} = require("../../utils/response");
 const OrderService = require('../../services/user/orderService');
 
@@ -51,5 +53,86 @@ exports.updateStatusPayment = async (req, res) => {
     } catch (err) {
         console.error(err);
         return errorResponse(res);
+    }
+};
+
+// Lấy chi tiết đơn hàng (chỉ của user hiện tại)
+exports.getById = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const userId = req.user.id;
+
+        const order = await Model.findById(orderId);
+        if (!order) {
+            return errorResponse(res, 'Order not found', 404);
+        }
+
+        // Kiểm tra quyền sở hữu đơn hàng
+        if (order.user_id !== userId) {
+            return errorResponse(res, 'Access denied', 403);
+        }
+
+        return successResponse(res, { data: order }, 'Get order successfully');
+    } catch (err) {
+        console.error(err);
+        return errorResponse(res, err?.message || 'Server error');
+    }
+};
+
+// User chỉ có thể hủy đơn hàng khi chưa thanh toán
+exports.cancelOrder = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const userId = req.user.id;
+
+        // Lấy thông tin đơn hàng hiện tại
+        const existingOrder = await Model.findById(orderId);
+        if (!existingOrder) {
+            return errorResponse(res, 'Order not found', 404);
+        }
+
+        // Kiểm tra quyền sở hữu đơn hàng
+        if (existingOrder.user_id !== userId) {
+            return errorResponse(res, 'Access denied', 403);
+        }
+
+        // Kiểm tra trạng thái thanh toán - chỉ cho phép hủy khi chưa thanh toán
+        if (existingOrder.payment_status === 'completed') {
+            return errorResponse(res, 'Cannot cancel order that has been paid', 400);
+        }
+
+        // Kiểm tra trạng thái đơn hàng - không cho phép hủy đơn đã hoàn thành
+        if (existingOrder.status === 'completed') {
+            return errorResponse(res, 'Cannot cancel completed order', 400);
+        }
+
+        // Cập nhật trạng thái đơn hàng thành canceled (chỉ cập nhật status, không động đến products)
+        const updateQuery = `
+            UPDATE ec_orders
+            SET status = ?, payment_status = ?, updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+        `;
+        await db.query(updateQuery, ['canceled', 'failed', orderId]);
+
+        // Lấy lại đơn hàng đã cập nhật
+        const updatedOrder = await Model.findById(orderId);
+
+        // Nếu đơn hàng đã thanh toán completed trước đó, hoàn trả số lượng sản phẩm
+        if (existingOrder.payment_status === 'completed') {
+            console.log('Restoring product stock for canceled order...');
+            for (const product of existingOrder.products) {
+                try {
+                    await Product.restoreStock(product.id, product.qty);
+                    console.log(`Restored stock for product ID: ${product.id}, quantity: ${product.qty}`);
+                } catch (stockError) {
+                    console.error(`Error restoring stock for product ID: ${product.id}:`, stockError);
+                }
+            }
+        }
+
+        return successResponse(res, { data: updatedOrder }, 'Order canceled successfully');
+    } catch (err) {
+        console.error(err);
+        return errorResponse(res, err?.message || 'Server error');
     }
 };

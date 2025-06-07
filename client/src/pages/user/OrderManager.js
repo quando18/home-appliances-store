@@ -3,10 +3,9 @@ import {Container, Row, Col, ButtonGroup, Dropdown, Table, Pagination, Button} f
 import { useSearchParams } from "react-router-dom";
 import OrderBreadcrumbs from './components/order/OrderBreadcrumbs';
 import apiOrderService from "./../../api/apiOrderService";
-import {FaEdit, FaListUl, FaPlusCircle, FaSearch, FaTrash} from "react-icons/fa";
+import {FaEdit, FaListUl, FaSearch} from "react-icons/fa";
 import OrderDetailsModal from './components/order/OrderDetailsModal';
-import NewOrderModal from "../admin/components/order/NewOrderModal";
-import ModelConfirmDeleteData from "../components/model-delete/ModelConfirmDeleteData";
+import UserOrderModal from './components/order/UserOrderModal';
 import OrderSearchForm from './components/order/OrderSearchForm';
 
 const formatCurrency = (value) => {
@@ -17,10 +16,8 @@ const OrderManager = () => {
     const [orders, setOrders] = useState([]);
     const [meta, setMeta] = useState({ total: 0, total_page: 1, page: 1, page_size: 10 });
     const [selectedOrder, setSelectedOrder] = useState(null);
-    const [orderToDelete, setOrderToDelete] = useState(null);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showOrderModal, setShowOrderModal] = useState(false);
-    const [orderToUpdate, setOrderToUpdate] = useState(null); // State quản lý đơn hàng để cập nhật
+    const [orderToUpdate, setOrderToUpdate] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
     // State quản lý tiêu chí tìm kiếm
@@ -58,15 +55,7 @@ const OrderManager = () => {
         setShowOrderModal(true);
     };
 
-    const handleDeleteData = async () => {
-        try {
-            await apiOrderService.delete(orderToDelete.id);
-            await refreshOrders();
-            setShowDeleteModal(false);
-        } catch (error) {
-            console.error("Error deleting order:", error);
-        }
-    };
+
 
     const handlePageChange = (newPage) => {
         const currentParams = Object.fromEntries([...searchParams]);
@@ -99,11 +88,8 @@ const OrderManager = () => {
     };
 
     const handleUpdateOrderClick = (order) => {
-        if (order.status !== 'completed') {
-            setOrderToUpdate(order); // Mở modal ở chế độ cập nhật với order được chọn
-        } else {
-            alert("Không thể chỉnh sửa đơn hàng đã hoàn tất.");
-        }
+        // User chỉ có thể xem chi tiết và hủy đơn hàng (nếu được phép)
+        setOrderToUpdate(order);
     };
 
     const getVariant = (status) => {
@@ -174,22 +160,19 @@ const OrderManager = () => {
                                     <Button
                                         size="sm"
                                         variant="primary"
-                                        onClick={() => handleUpdateOrderClick(order)}
-                                        title="Cập nhật"
+                                        onClick={() => handleOrderClick(order)}
+                                        className="me-2"
+                                        title="Xem chi tiết"
                                     >
-                                        <FaEdit />
+                                        <FaListUl />
                                     </Button>
                                     <Button
                                         size="sm"
-                                        className="ms-2"
-                                        variant="danger"
-                                        onClick={() => {
-                                            setOrderToDelete(order);
-                                            setShowDeleteModal(true);
-                                        }}
-                                        title="Xoá"
+                                        variant="warning"
+                                        onClick={() => handleUpdateOrderClick(order)}
+                                        title="Quản lý đơn hàng"
                                     >
-                                        <FaTrash />
+                                        <FaEdit />
                                     </Button>
                                 </td>
                             </tr>
@@ -232,17 +215,11 @@ const OrderManager = () => {
                 order={selectedOrder}
             />
 
-            <NewOrderModal
+            <UserOrderModal
                 show={!!orderToUpdate}
                 onHide={() => setOrderToUpdate(null)}
-                orderToUpdate={orderToUpdate}
+                order={orderToUpdate}
                 refreshOrders={refreshOrders}
-            />
-
-            <ModelConfirmDeleteData
-                showDeleteModal={showDeleteModal}
-                setShowDeleteModal={setShowDeleteModal}
-                handleDeleteData={handleDeleteData}
             />
         </Container>
     );

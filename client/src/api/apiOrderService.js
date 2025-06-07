@@ -33,6 +33,12 @@ const apiOrderService = {
     getPaymentMethods: () => {
         return apiHelper.get(`payment-methods`);
     },
+    getById: (id) => {
+        return apiHelper.get(`user/order/${id}`);
+    },
+    cancelOrder: (id) => {
+        return apiHelper.post(`user/order/cancel/${id}`);
+    },
 };
 
 export default apiOrderService;

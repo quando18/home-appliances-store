@@ -247,9 +247,9 @@ const ProductManager = () => {
                             <th>Danh mục</th>
                             <th>Thương hiệu</th>
                             <th>Giá</th>
-                            <th>Số Lượng</th>
+                            <th>SL</th>
                             <th>Nhãn</th>
-                            <th>Thao tác</th>
+                            <th style={{ width: '100px' }}>Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -275,7 +275,7 @@ const ProductManager = () => {
                                         <span className="text-muted">Chưa có nhãn</span>
                                     )}
                                 </td>
-                                <td>
+                                <td style={{verticalAlign: 'middle'}}>
                                     <Button size="sm" variant="primary" onClick={() => openProductModal(product)} title="Cập nhật">
                                         <FaEdit />
                                     </Button>

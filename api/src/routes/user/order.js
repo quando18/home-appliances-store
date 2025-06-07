@@ -26,6 +26,8 @@ router.post(
 );
 
 router.get('/', auth, orderController.getAll);
+router.get('/:id', auth, orderController.getById);
 router.post('/update-status-payment', auth, orderController.updateStatusPayment);
+router.post('/cancel/:id', auth, orderController.cancelOrder);
 
 module.exports = router;

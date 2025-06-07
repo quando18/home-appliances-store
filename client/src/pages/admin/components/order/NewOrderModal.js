@@ -143,6 +143,27 @@ const NewOrderModal = ({ show, onHide, orderToUpdate, refreshOrders }) => {
     };
 
     const handleSaveOrder = async () => {
+        // Validation cho user không phải admin
+        if (currentUser?.user_type !== 'ADMIN') {
+            // User không được phép set payment_status thành completed
+            if (paymentStatus.value === 'completed') {
+                alert('Bạn không có quyền đặt trạng thái thanh toán thành "Hoàn thành"');
+                return;
+            }
+
+            // User không được phép set order_status thành completed
+            if (orderStatus.value === 'completed') {
+                alert('Bạn không có quyền đặt trạng thái đơn hàng thành "Hoàn thành"');
+                return;
+            }
+
+            // User chỉ có thể hủy đơn hàng khi chưa thanh toán
+            if (orderToUpdate && orderToUpdate.payment_status === 'completed' && orderStatus.value === 'canceled') {
+                alert('Không thể hủy đơn hàng đã thanh toán');
+                return;
+            }
+        }
+
         const orderData = {
             user_id: user.value,
             products: selectedProducts.map((p) => ({ id: p.value, quantity: p.quantity || 1 })),
@@ -152,14 +173,20 @@ const NewOrderModal = ({ show, onHide, orderToUpdate, refreshOrders }) => {
             payment_status: paymentStatus.value,
             status: orderStatus.value,
         };
-        if (orderToUpdate && Object.keys(orderToUpdate).length > 0) {
-            await apiOrderService.updateOrder(orderToUpdate.id, orderData);
-        } else {
-            await apiOrderService.createOrder(orderData);
-        }
 
-        await refreshOrders(); // Gọi hàm refreshOrders sau khi lưu thành công
-        onHide();
+        try {
+            if (orderToUpdate && Object.keys(orderToUpdate).length > 0) {
+                await apiOrderService.updateOrder(orderToUpdate.id, orderData);
+            } else {
+                await apiOrderService.createOrder(orderData);
+            }
+
+            await refreshOrders(); // Gọi hàm refreshOrders sau khi lưu thành công
+            onHide();
+        } catch (error) {
+            console.error('Error saving order:', error);
+            alert(error.response?.data?.message || 'Có lỗi xảy ra khi lưu đơn hàng');
+        }
     };
 
     return (
@@ -191,12 +218,18 @@ const NewOrderModal = ({ show, onHide, orderToUpdate, refreshOrders }) => {
                     <Col md={6}>
                         {/* Thêm order_status */}
                         <Form.Group className="mb-3">
-                            <Form.Label>Trạng thái đơn hàng {currentUser?.user_type !== 'ADMIN'}</Form.Label>
+                            <Form.Label>Trạng thái đơn hàng</Form.Label>
                             <Select
                                 isDisabled={currentUser?.user_type !== 'ADMIN'}
                                 value={orderStatus}
                                 onChange={setOrderStatus}
-                                options={orderStatusOptions}
+                                options={orderStatusOptions.filter(option => {
+                                    // User chỉ có thể thấy pending và canceled, không thể set completed
+                                    if (currentUser?.user_type !== 'ADMIN') {
+                                        return ['pending', 'canceled'].includes(option.value);
+                                    }
+                                    return true;
+                                })}
                                 placeholder="Chọn trạng thái đơn hàng"
                             />
                         </Form.Group>
@@ -206,9 +239,16 @@ const NewOrderModal = ({ show, onHide, orderToUpdate, refreshOrders }) => {
                         <Form.Group className="mb-3">
                             <Form.Label>Trạng thái thanh toán</Form.Label>
                             <Select
+                                isDisabled={currentUser?.user_type !== 'ADMIN'}
                                 value={paymentStatus}
                                 onChange={setPaymentStatus}
-                                options={paymentStatusOptions}
+                                options={paymentStatusOptions.filter(option => {
+                                    // User chỉ có thể thấy pending và failed, không thể set completed
+                                    if (currentUser?.user_type !== 'ADMIN') {
+                                        return ['pending', 'failed'].includes(option.value);
+                                    }
+                                    return true;
+                                })}
                                 placeholder="Chọn trạng thái thanh toán"
                             />
                         </Form.Group>

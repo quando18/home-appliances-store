@@ -251,6 +251,26 @@ const Product = {
         return result.affectedRows > 0;
     },
 
+    // Cập nhật số lượng sản phẩm (trừ khi bán)
+    updateStock: async (productId, quantity) => {
+        const query = `
+            UPDATE ${Product.tableName}
+            SET number = number - ?
+            WHERE id = ? AND number >= ?`;
+        const [result] = await db.query(query, [quantity, productId, quantity]);
+        return result.affectedRows > 0;
+    },
+
+    // Hoàn trả số lượng sản phẩm (cộng khi hủy đơn)
+    restoreStock: async (productId, quantity) => {
+        const query = `
+            UPDATE ${Product.tableName}
+            SET number = number + ?
+            WHERE id = ?`;
+        const [result] = await db.query(query, [quantity, productId]);
+        return result.affectedRows > 0;
+    },
+
     // Xử lý biến thể
     getVariants: async (productId) => {
         const query = `
