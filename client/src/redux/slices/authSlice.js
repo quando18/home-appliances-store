@@ -10,8 +10,9 @@ export const registerUser = createAsyncThunk( 'auth/registerUser', async ( userD
 		return response.data;
 	} catch ( err )
 	{
-		console.info( "===========[registerUser] ===========[err] : ", err.response );
-		return rejectWithValue( err.response.data );
+		console.info( "===========[registerUser] ===========[err] : ", err );
+		// err đã được flatten trong apiHelper, không cần .response.data
+		return rejectWithValue( err );
 	}
 } );
 
@@ -46,7 +47,8 @@ export const loginUser = createAsyncThunk( 'auth/loginUser', async ( userData, {
 	} catch ( err )
 	{
 		console.log("err-------->? ", err);
-		return rejectWithValue( err.response.data );
+		// err đã được flatten trong apiHelper, không cần .response.data
+		return rejectWithValue( err );
 	}
 } );
 
@@ -74,7 +76,8 @@ export const updateUserProfile = createAsyncThunk( 'user/profile', async ( userD
 		return response.data;
 	} catch ( err )
 	{
-		return rejectWithValue( err.response.data || 'Cập nhật thất bại' );
+		// err đã được flatten trong apiHelper
+		return rejectWithValue( err || 'Cập nhật thất bại' );
 	}
 } );
 
@@ -96,6 +99,10 @@ const authSlice = createSlice( {
 			state.isAuthenticated = false;
 			state.user = null;
 			state.loading = false;
+			state.error = null;
+		},
+		clearError: ( state ) =>
+		{
 			state.error = null;
 		},
 	},
@@ -182,6 +189,6 @@ const authSlice = createSlice( {
 	},
 } );
 
-export const { logout } = authSlice.actions;
+export const { logout, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

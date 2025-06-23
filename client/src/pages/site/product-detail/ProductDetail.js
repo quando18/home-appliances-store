@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {Container, Row, Col, Button, Badge, Form, ProgressBar, Nav, Breadcrumb} from 'react-bootstrap';
-import {FaStar, FaRegStar, FaTruck, FaShieldAlt, FaExchangeAlt, FaStarHalfAlt, FaMinus, FaPlus} from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import {Container, Row, Col, Button, Badge, Form, Breadcrumb} from 'react-bootstrap';
+import {FaTruck, FaShieldAlt, FaExchangeAlt, FaMinus, FaPlus} from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../../redux/slices/cartSlice';
 import apiProductService from '../../../api/apiProductService';
-import {formatPrice, renderStarsItem, createSlug} from '../../../helpers/formatters';
+import {formatPrice, renderStarsItem} from '../../../helpers/formatters';
 import '../style/ProductDetail.css';
 import apiVoteService from "../../../api/apiVoteService";
 import { toast, ToastContainer } from 'react-toastify';
@@ -23,8 +23,8 @@ const ProductDetail = () => {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [isLoadingRelated, setIsLoadingRelated] = useState(true);
     const dispatch = useDispatch();
-
-	const navigate = useNavigate()
+    const navigate = useNavigate();
+    const cartItems = useSelector(state => state.cart.items);
 
 
     useEffect(() => {
@@ -38,6 +38,11 @@ const ProductDetail = () => {
                 const id = slug.split('-').pop();
                 try {
                     const response = await apiProductService.showProductDetail(id);
+                    console.log("=== API RESPONSE ===");
+                    console.log("Full response:", response);
+                    console.log("Product data:", response.data.data);
+                    console.log("Product number (stock):", response.data.data.number);
+                    console.log("Product number type:", typeof response.data.data.number);
                     setProduct(response.data.data);
                 } catch (error) {
                     console.error("Error fetching product:", error);
@@ -76,10 +81,72 @@ const ProductDetail = () => {
     }
 
     const handleAddToCart = () => {
-        dispatch(addToCart({ ...product, quantity, selected: true }));
+        console.log("=== DEBUG ADD TO CART ===");
+        console.log("Product:", product);
+        console.log("Product.number (stock):", product.number);
+        console.log("Quantity to add:", quantity);
+
+        // Lấy số lượng sản phẩm đã có trong giỏ hàng
+        const existingCartItem = cartItems.find(item => item.id === product.id);
+        const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+        const totalQuantity = existingQuantity + quantity;
+
+        console.log("Existing quantity in cart:", existingQuantity);
+        console.log("Total quantity after adding:", totalQuantity);
+        console.log("Stock check:", totalQuantity > product.number);
+
+        // Kiểm tra sản phẩm còn hàng không
+        if (product.number <= 0) {
+            console.log("❌ Out of stock");
+            toast.error("Sản phẩm đã hết hàng");
+            return;
+        }
+
+        // Kiểm tra tổng số lượng (đã có + muốn thêm) có vượt quá tồn kho không
+        if (totalQuantity > product.number) {
+            console.log("❌ Total quantity exceeds stock");
+            const remainingStock = product.number - existingQuantity;
+            if (remainingStock <= 0) {
+                toast.error("Sản phẩm này đã đạt số lượng tối đa trong giỏ hàng");
+            } else {
+                toast.error(`Chỉ có thể thêm tối đa ${remainingStock} sản phẩm nữa vào giỏ hàng`);
+            }
+            return;
+        }
+
+        console.log("✅ Stock check passed, adding to cart");
+        try {
+            dispatch(addToCart({ ...product, quantity, selected: true }));
+            toast.success("Đã thêm sản phẩm vào giỏ hàng");
+        } catch (error) {
+            console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
+            toast.error("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
+        }
     };
 
 	const handleOrder = () => {
+        // Lấy số lượng sản phẩm đã có trong giỏ hàng
+        const existingCartItem = cartItems.find(item => item.id === product.id);
+        const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+        const totalQuantity = existingQuantity + quantity;
+
+        // Kiểm tra sản phẩm còn hàng không
+        if (product.number <= 0) {
+            toast.error("Sản phẩm đã hết hàng");
+            return;
+        }
+
+        // Kiểm tra tổng số lượng (đã có + muốn mua) có vượt quá tồn kho không
+        if (totalQuantity > product.number) {
+            const remainingStock = product.number - existingQuantity;
+            if (remainingStock <= 0) {
+                toast.error("Sản phẩm này đã đạt số lượng tối đa trong giỏ hàng");
+            } else {
+                toast.error(`Chỉ có thể mua tối đa ${remainingStock} sản phẩm nữa`);
+            }
+            return;
+        }
+
         try {
             // Thêm sản phẩm vào giỏ hàng
             dispatch(addToCart({ ...product, quantity, selected: true }));
@@ -205,22 +272,61 @@ const ProductDetail = () => {
                                             <button
                                                 className="quantity-btn"
                                                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                                disabled={quantity <= 1}
                                             >
                                                 <FaMinus />
                                             </button>
                                             <Form.Control
                                                 type="number"
                                                 value={quantity}
-                                                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                                                onChange={(e) => {
+                                                    const newQuantity = parseInt(e.target.value) || 1;
+                                                    const existingCartItem = cartItems.find(item => item.id === product.id);
+                                                    const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+                                                    const maxAllowedQuantity = product.number - existingQuantity;
+                                                    const finalQuantity = Math.min(newQuantity, maxAllowedQuantity);
+                                                    setQuantity(Math.max(1, finalQuantity));
+                                                }}
                                                 className="quantity-input"
+                                                min="1"
+                                                max={(() => {
+                                                    const existingCartItem = cartItems.find(item => item.id === product.id);
+                                                    const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+                                                    return Math.max(1, product.number - existingQuantity);
+                                                })()}
                                             />
                                             <button
                                                 className="quantity-btn"
-                                                onClick={() => setQuantity(quantity + 1)}
+                                                onClick={() => {
+                                                    const existingCartItem = cartItems.find(item => item.id === product.id);
+                                                    const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+                                                    const maxAllowedQuantity = product.number - existingQuantity;
+                                                    setQuantity(Math.min(quantity + 1, maxAllowedQuantity));
+                                                }}
+                                                disabled={(() => {
+                                                    const existingCartItem = cartItems.find(item => item.id === product.id);
+                                                    const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+                                                    return quantity >= (product.number - existingQuantity);
+                                                })()}
                                             >
                                                 <FaPlus />
                                             </button>
                                         </div>
+                                        {product.number > 0 && (
+                                            <small className="text-muted">
+                                                {(() => {
+                                                    const existingCartItem = cartItems.find(item => item.id === product.id);
+                                                    const existingQuantity = existingCartItem ? existingCartItem.quantity : 0;
+                                                    const remainingStock = product.number - existingQuantity;
+
+                                                    if (existingQuantity > 0) {
+                                                        return `Còn lại: ${remainingStock} sản phẩm (${existingQuantity} đã có trong giỏ)`;
+                                                    } else {
+                                                        return `Còn lại: ${product.number} sản phẩm`;
+                                                    }
+                                                })()}
+                                            </small>
+                                        )}
                                     </div>
 
                                     <div className="action-buttons">

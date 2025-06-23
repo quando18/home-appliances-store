@@ -14,7 +14,7 @@ import UserTable from "../components/user/UserTable";
 import UserFormModal from "../components/user/UserFormModal";
 import UserSearchModal from "../components/user/UserSearchModal";
 import { FaPlusCircle } from "react-icons/fa";
-import ModelConfirmDeleteData from "../../components/model-delete/ModelConfirmDeleteData";
+import ModelConfirmDeleteUser from "../../components/model-delete/ModelConfirmDeleteUser";
 import { DEFAULT_AVATAR } from "../../../helpers/StatusLabel";
 import { toast } from "react-toastify";
 
@@ -114,16 +114,40 @@ const UserManager = () => {
 
 	const handleDeleteData = async () => {
 		try {
-			await userService.delete(userToDelete.id);
-			const params = Object.fromEntries([...searchParams]);
-			fetchUsersWithParams({
-				...params,
-				page: params.page || 1,
-				page_size: params.page_size || 10,
-			});
-			setShowDeleteModal(false);
+			const response = await userService.delete(userToDelete.id);
+
+			if (response?.status === "success") {
+				// Hiển thị thông báo thành công với thông tin chi tiết
+				const deletedData = response.data?.deletedData;
+				let successMessage = "Xóa khách hàng thành công!";
+
+				if (deletedData) {
+					const details = [];
+					if (deletedData.orders > 0) details.push(`${deletedData.orders} đơn hàng`);
+					if (deletedData.transactions > 0) details.push(`${deletedData.transactions} giao dịch`);
+					if (deletedData.votes > 0) details.push(`${deletedData.votes} đánh giá`);
+
+					if (details.length > 0) {
+						successMessage += ` Đã xóa: ${details.join(', ')}.`;
+					}
+				}
+
+				toast.success(successMessage);
+
+				const params = Object.fromEntries([...searchParams]);
+				fetchUsersWithParams({
+					...params,
+					page: params.page || 1,
+					page_size: params.page_size || 10,
+				});
+				setShowDeleteModal(false);
+			} else {
+				toast.error(response?.message || "Xóa thất bại!");
+			}
 		} catch (error) {
 			console.error("Error deleting user:", error);
+			// Hiển thị thông báo lỗi từ API
+			toast.error(error?.message || "Có lỗi xảy ra khi xóa khách hàng!");
 		}
 	};
 
@@ -218,10 +242,11 @@ const UserManager = () => {
 				handleAddEditUser={handleAddEditUser}
 			/>
 
-			<ModelConfirmDeleteData
+			<ModelConfirmDeleteUser
 				showDeleteModal={showDeleteModal}
 				setShowDeleteModal={setShowDeleteModal}
 				handleDeleteData={handleDeleteData}
+				userToDelete={userToDelete}
 			/>
 
 			<UserSearchModal

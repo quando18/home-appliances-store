@@ -16,6 +16,9 @@ const Header = ({information, isAuthenticated, handleBookingShow}) => {
     const navigate = useNavigate();
     const handleLogout = () => {
         dispatch(logout());
+        startTransition(() => {
+            navigate("/login");
+        });
     };
 
     const [categories, setCategories] = useState([]);

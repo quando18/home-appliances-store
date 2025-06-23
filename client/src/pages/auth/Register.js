@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../site/style/Login.css";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/slices/authSlice";
+import { registerUser, clearError } from "../../redux/slices/authSlice";
 import bgImage from "../../assets/images/bg-login.jpg";
 import toastr from "toastr";
 import slideService from "../../api/slideService";
@@ -25,6 +25,11 @@ const Register = () => {
 	const navigate = useNavigate();
 	const [slides, setSlides] = useState([]);
 	const backgroundImageUrl =  LOGO // slides.length > 0 ? slides[0].avatar : "";
+
+	// Clear error khi component mount
+	useEffect(() => {
+		dispatch(clearError());
+	}, [dispatch]);
 
 	const validationSchema = Yup.object({
 		email: Yup.string()
@@ -46,19 +51,28 @@ const Register = () => {
 	});
 
 	const onSubmit = async (values, { setSubmitting, setErrors }) => {
+		console.log("=== REGISTER SUBMIT START ===");
 		const result = await dispatch(registerUser(values));
+		console.log("=== REGISTER RESULT ===", result);
+
 		if (registerUser.fulfilled.match(result)) {
+			console.log("=== REGISTER SUCCESS ===");
 			toastr.success(
 				"Đăng ký thành công, xin vui lòng kiểm tra email để kích hoạt tài khoản",
 				"Success"
 			);
 			navigate("/login");
 		} else {
-			setErrors({ submit: "Đăng ký thất bại, vui lòng thử lại." });
-			toastr.error(
-				"Đăng ký thất bại, thông tin đăng ký không hợp lệ",
-				"Error"
-			);
+			console.log("=== REGISTER ERROR ===");
+			console.log("result.payload:", result.payload);
+			console.log("result.error:", result.error);
+
+			// Lấy thông báo lỗi từ result.payload
+			const errorMessage = result.payload?.message || result.error?.message || "Đăng ký thất bại, vui lòng thử lại.";
+			console.log("errorMessage:", errorMessage);
+
+			setErrors({ submit: errorMessage });
+			toastr.error(errorMessage, "Lỗi");
 		}
 		setSubmitting(false);
 	};
@@ -102,8 +116,8 @@ const Register = () => {
 						<p className="hebekery-auth-subtitle">
 							Tạo tài khoản mới để bắt đầu mua sắm
 						</p>
-						{error && error?.message && (
-							<div className="hebekery-alert">{error.message}</div>
+						{error && (
+							<div className="hebekery-alert">{error}</div>
 						)}
 						<Formik
 							initialValues={initialValues}

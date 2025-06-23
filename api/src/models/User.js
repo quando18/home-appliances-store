@@ -131,6 +131,94 @@ const User = {
         const [rows] = await db.query(query, [id]);
         return rows?.length > 0 ? rows[0] : null;
     },
+
+    // Kiểm tra đơn hàng chưa hoàn thành của user
+    checkPendingOrders: async (userId) => {
+        const query = `
+            SELECT COUNT(*) as count
+            FROM ec_orders
+            WHERE user_id = ?
+            AND (status != 'completed' OR payment_status != 'completed')
+        `;
+        const [rows] = await db.query(query, [userId]);
+        const count = rows[0]?.count || 0;
+
+        return {
+            hasPendingOrders: count > 0,
+            count: count
+        };
+    },
+
+    // Xóa user và tất cả dữ liệu liên quan
+    deleteUserWithRelatedData: async (userId) => {
+        const connection = await db.getConnection();
+
+        try {
+            await connection.beginTransaction();
+
+            const deletedData = {
+                orders: 0,
+                transactions: 0,
+                votes: 0,
+                user: 0
+            };
+
+            // 1. Xóa votes/reviews của user
+            const [voteResult] = await connection.query(
+                'DELETE FROM votes WHERE user_id = ?',
+                [userId]
+            );
+            deletedData.votes = voteResult.affectedRows;
+
+            // 2. Lấy danh sách order_id của user để xóa transactions
+            const [orderIds] = await connection.query(
+                'SELECT id FROM ec_orders WHERE user_id = ?',
+                [userId]
+            );
+
+            if (orderIds.length > 0) {
+                const orderIdList = orderIds.map(order => order.id);
+
+                // 3. Xóa transactions của các orders
+                const [transactionResult] = await connection.query(
+                    `DELETE FROM ec_transactions WHERE order_id IN (${orderIdList.map(() => '?').join(',')})`,
+                    orderIdList
+                );
+                deletedData.transactions = transactionResult.affectedRows;
+            }
+
+            // 4. Xóa orders của user
+            const [orderResult] = await connection.query(
+                'DELETE FROM ec_orders WHERE user_id = ?',
+                [userId]
+            );
+            deletedData.orders = orderResult.affectedRows;
+
+            // 5. Cuối cùng xóa user
+            const [userResult] = await connection.query(
+                `DELETE FROM ${User.tableName} WHERE id = ?`,
+                [userId]
+            );
+            deletedData.user = userResult.affectedRows;
+
+            await connection.commit();
+
+            return {
+                success: true,
+                deletedData: deletedData
+            };
+
+        } catch (error) {
+            await connection.rollback();
+            console.error('Error deleting user with related data:', error);
+            return {
+                success: false,
+                message: error.message
+            };
+        } finally {
+            connection.release();
+        }
+    },
 };
 
 module.exports = User;

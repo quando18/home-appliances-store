@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     items: [],
     itemCount: 0,
+    lastAddResult: null,
 };
 
 // Khôi phục trạng thái giỏ hàng từ localStorage
@@ -41,13 +42,38 @@ const cartSlice = createSlice({
         addToCart: (state, action) => {
             state.items = state.items || [];
             const existingProductIndex = state.items.findIndex(item => item.id === action.payload.id);
+            const productStock = action.payload.number || 0;
 
             if (existingProductIndex >= 0) {
-                // Nếu sản phẩm đã tồn tại, tăng số lượng
-                state.items[existingProductIndex].quantity += action.payload.quantity;
+                // Nếu sản phẩm đã tồn tại, kiểm tra tổng số lượng không vượt quá tồn kho
+                const currentQuantity = state.items[existingProductIndex].quantity;
+                const newQuantity = currentQuantity + action.payload.quantity;
+
+                if (newQuantity > productStock) {
+                    // Nếu vượt quá tồn kho, chỉ thêm số lượng tối đa có thể
+                    state.items[existingProductIndex].quantity = productStock;
+                    // Có thể thêm flag để component biết và hiển thị thông báo
+                    state.lastAddResult = {
+                        success: false,
+                        message: `Chỉ có thể thêm tối đa ${productStock} sản phẩm. Đã cập nhật số lượng trong giỏ hàng.`
+                    };
+                } else {
+                    state.items[existingProductIndex].quantity = newQuantity;
+                    state.lastAddResult = { success: true };
+                }
             } else {
-                // Nếu sản phẩm chưa tồn tại, thêm vào mảng items
-                state.items.push({ ...action.payload, quantity: action.payload.quantity });
+                // Nếu sản phẩm chưa tồn tại, kiểm tra số lượng muốn thêm
+                if (action.payload.quantity > productStock) {
+                    // Nếu vượt quá tồn kho, thêm số lượng tối đa có thể
+                    state.items.push({ ...action.payload, quantity: productStock });
+                    state.lastAddResult = {
+                        success: false,
+                        message: `Chỉ có thể thêm tối đa ${productStock} sản phẩm.`
+                    };
+                } else {
+                    state.items.push({ ...action.payload, quantity: action.payload.quantity });
+                    state.lastAddResult = { success: true };
+                }
             }
 
             // Tính lại itemCount bằng cách tính tổng số lượng các sản phẩm trong giỏ hàng

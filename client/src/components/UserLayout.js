@@ -52,9 +52,15 @@ const UserLayout = ({ isAuthenticated, user }) => {
                             <Dropdown.Menu>
                                 <Dropdown.Item as={Link} to="/user/profile">Cập nhật thông tin</Dropdown.Item>
                                 {user?.user_type == "ADMIN" && (
-                                    <Dropdown.Item as={Link} to="/user/profile">Truy cập ADMIN</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to="/admin/">Truy cập ADMIN</Dropdown.Item>
                                 )}
                                 <Dropdown.Divider />
+                                {/* <Dropdown.Item onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        startTransition(() => {
+                                                                            navigate("/login");
+                                                                        });
+                                                                    }}>Đăng xuất</Dropdown.Item> */}
                                 <Dropdown.Item onClick={handleLogout}>Đăng xuất</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

@@ -78,13 +78,13 @@ const AdminLayout = ({ isAuthenticated, user, onLogout }) => {
                                 <Dropdown.Item as={Link} to="/admin/profile">Cập nhật thông tin</Dropdown.Item>
                                 <Dropdown.Divider />
                                 <Dropdown.Item
-                                    onClick={() => onLogout()}
-                                    // onClick={(e) => {
-                                    //     e.preventDefault();
-                                    //     startTransition(() => {
-                                    //         navigate("/login");
-                                    //     });
-                                    // }}
+                                    // onClick={() => onLogout()}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        startTransition(() => {
+                                            navigate("/login");
+                                        });
+                                    }}
                                 >Đăng xuất</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

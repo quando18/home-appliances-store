@@ -22,7 +22,17 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
     (response) => {
-        // Chuẩn hóa phản hồi trả về
+        // Kiểm tra nếu API trả về status "error" trong response body
+        if (response.data.status === 'error') {
+            // Reject promise nếu API trả về lỗi
+            return Promise.reject({
+                ...response.data,
+                message: response.data.message,
+                status: response.data.status,
+            });
+        }
+
+        // Chuẩn hóa phản hồi trả về cho trường hợp thành công
         return {
             data: response.data.data,
             status: response.data.status,
@@ -36,13 +46,16 @@ api.interceptors.response.use(
             console.info("===========[] ===========[window.location.href LOGIN] : ");
             window.location.href = '/login';
         }
-		return {
-			...error?.response?.data || {},
-			message: error.response?.data?.message || error.message,
-			status: error.response?.status || "error",
-			
-		}
-        return Promise.reject(error);
+
+        // Tạo error object với thông tin chi tiết
+        const errorData = {
+            ...error?.response?.data || {},
+            message: error.response?.data?.message || error.message,
+            status: error.response?.status || "error",
+        };
+
+        // Reject promise để Redux thunk có thể catch được lỗi
+        return Promise.reject(errorData);
     }
 );
 

@@ -20,6 +20,7 @@ router.use('/payment-methods', require('./guest/payment_methods'));
 router.use('/work-preferences', require('./guest/work_preferences'));
 router.use('/posts', require('./guest/article'));
 router.use('/menus', require('./guest/menu'));
+router.use('/debug', require('./debug/product'));
 
 // router.use('/guest', require('./guest/guest'));
 router.get(

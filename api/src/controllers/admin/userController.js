@@ -118,16 +118,26 @@ exports.deleteUser = async (req, res) => {
         // Check if user exists
         let user = await User.findOneById(id);
         if (!user) {
-            return errorResponse(res, 'User not found', 404);
+            return errorResponse(res, 'User not found', 404, 404);
         }
 
-        // Delete user
-        const isDeleted = await User.delete(id);
-        if (!isDeleted) {
-            return errorResponse(res, 'Failed to delete user', 400);
+        // Kiểm tra đơn hàng chưa hoàn thành
+        const pendingOrdersResult = await User.checkPendingOrders(id);
+        if (pendingOrdersResult.hasPendingOrders) {
+            return errorResponse(res,
+                `Không thể xóa khách hàng này vì còn ${pendingOrdersResult.count} đơn hàng chưa hoàn thành. Vui lòng xử lý hết các đơn hàng trước khi xóa.`,
+                400, 400);
         }
 
-        successResponse(res, {}, 'User deleted successfully', 200);
+        // Xóa tất cả dữ liệu liên quan đến user
+        const deleteResult = await User.deleteUserWithRelatedData(id);
+        if (!deleteResult.success) {
+            return errorResponse(res, deleteResult.message || 'Failed to delete user', 400, 400);
+        }
+
+        successResponse(res, {
+            deletedData: deleteResult.deletedData
+        }, 'Xóa khách hàng và tất cả dữ liệu liên quan thành công', 200);
     } catch (err) {
         console.error(err.message);
         errorResponse(res, err?.message || 'Server error', 500);
