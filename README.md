@@ -14,6 +14,7 @@ Website mô phỏng bán hàng gia dụng đơn giản, sử dụng HTML, CSS, J
 Hiển thị sản phẩm
 Responsive cho di động
 Navigation đơn giản
+
 🛠 Công nghệ
 HTML5, CSS3
 JavaScript
